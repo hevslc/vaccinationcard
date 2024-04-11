@@ -9,6 +9,12 @@ defmodule VaccinationcardWeb.UsersController do
       conn
       |> put_status(:ok)
       |> render("show.json", user: user)
+    else
+      {:error,  %{status: :not_found, result: error_message}} ->
+        conn
+        |> put_status(404)
+        |> put_view(json: VaccinationcardWeb.ErrorJSON)
+        |> render(:"404")
     end
   end
 end
