@@ -7,6 +7,8 @@ defmodule VaccinationcardWeb.Router do
 
   scope "/api", VaccinationcardWeb do
     pipe_through :api
+
+    get "/PesquisaUsuarioPordocumento/", UsersController, :search_user_by_document
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
