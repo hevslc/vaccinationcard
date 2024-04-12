@@ -9,4 +9,8 @@ defmodule VaccinationcardWeb.VaccinationsView do
   def render("create.json", %{vaccination: %Vaccination{} = vaccination}) do
     %{vaccination: vaccination}
   end
+
+  def render("show.json", %{vaccination: %Vaccination{} = vaccination}) do
+    %{vaccination: vaccination}
+  end
 end

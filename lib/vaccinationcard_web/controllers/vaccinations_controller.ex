@@ -26,6 +26,35 @@ defmodule VaccinationcardWeb.VaccinationsController do
       |> put_status(:created)
       |> render("create.json", vaccination: vaccination)
     else
+      {:error, :invalid_params} ->
+        conn
+        |> put_status(400)
+        |> put_view(json: VaccinationcardWeb.ErrorJSON)
+        |> render(:"400")
+      {:error, changeset} ->
+        conn
+        |> put_status(:bad_request)
+        |> put_view(ErrorView)
+        |> render("400.json", result: changeset)
+    end
+  end
+
+  def update(conn, params) do
+    with {:ok, %Vaccination{} = vaccination} <- VaccinationService.update_vaccination(params) do
+      conn
+      |> put_status(:ok)
+      |> render("show.json", vaccination: vaccination)
+    else
+      {:error, :invalid_params} ->
+        conn
+        |> put_status(400)
+        |> put_view(json: VaccinationcardWeb.ErrorJSON)
+        |> render(:"400")
+      {:error, :not_found} ->
+        conn
+        |> put_status(404)
+        |> put_view(json: VaccinationcardWeb.ErrorJSON)
+        |> render(:"404")
       {:error, changeset} ->
         conn
         |> put_status(:bad_request)

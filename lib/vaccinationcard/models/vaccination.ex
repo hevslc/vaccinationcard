@@ -24,8 +24,8 @@ defmodule Vaccinationcard.Models.Vaccination do
     timestamps()
   end
 
-  def changeset(%{} = params) do
-    %Vaccination{}
+  def changeset(struct \\ %__MODULE__{}, %{} = params) do
+    struct
     |> cast(params, @fields)
     |> validate_required([:name, :dose, :user_id])
     |> validate_inclusion(:name, @acceptable_names)
