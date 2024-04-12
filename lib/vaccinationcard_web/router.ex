@@ -12,6 +12,7 @@ defmodule VaccinationcardWeb.Router do
     get "/PesquisaCartaoDeVacinacao/", VaccinationsController, :get_vaccination_card_by_user
     post "/CriarVacina/", VaccinationsController, :create
     post "/AtualizarVacina/", VaccinationsController, :update
+    post "/CriarUsuario/", UsersController, :create
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development

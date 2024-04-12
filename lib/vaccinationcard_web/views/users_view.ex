@@ -4,4 +4,5 @@ defmodule VaccinationcardWeb.UsersView do
 
 
   def render("show.json", %{user: %User{} = user}), do: %{user: user}
+  def render("create.json", %{user: %User{} = user}), do: %{user: user}
 end

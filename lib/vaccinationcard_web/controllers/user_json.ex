@@ -1,6 +1,13 @@
 defmodule VaccinationcardWeb.UserJSON do
   alias Vaccinationcard.Models.User
 
+   @doc """
+  Renders a user created.
+  """
+  def create(%{user: user}) do
+    %{data: data(user)}
+  end
+
   @doc """
   Renders a single user.
   """

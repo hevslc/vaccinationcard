@@ -47,24 +47,30 @@ defmodule Vaccinationcard.Models.User do
     |> validate_required([:name, :gender, :national_card, :cpf])
   end
 
-  def get_user_by(%{"national_card" => national_card}) do
+  def create(params) do
+    params
+    |> changeset()
+    |> Repo.insert()
+  end
+
+  def get_by(%{"national_card" => national_card}) do
     query = from u in User, where: u.national_card == ^national_card
-    get_user_by_query(query)
+    get_by_query(query)
   end
 
-  def get_user_by(%{"rg" => rg}) do
+  def get_by(%{"rg" => rg}) do
     query = from u in User, where: u.rg == ^rg
-    get_user_by_query(query)
+    get_by_query(query)
   end
 
-  def get_user_by(%{"cpf" => cpf}) do
+  def get_by(%{"cpf" => cpf}) do
     query = from u in User, where: u.cpf == ^cpf
-    get_user_by_query(query)
+    get_by_query(query)
   end
 
-  def get_user_by(_params), do: {:error, :invalid_params}
+  def get_by(_params), do: {:error, :invalid_params}
 
-  defp get_user_by_query(query) do
+  defp get_by_query(query) do
     case Repo.one(query) do
       nil -> {:error, :not_found}
       user -> {:ok, user}
