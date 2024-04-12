@@ -9,6 +9,8 @@ defmodule VaccinationcardWeb.Router do
     pipe_through :api
 
     get "/PesquisaUsuarioPordocumento/", UsersController, :search_user_by_document
+    get "/PesquisaCartaoDeVacinacao/", VaccinationsController, :get_vaccination_card_by_user
+    post "/CriarVacina/", VaccinationsController, :create
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
