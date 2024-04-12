@@ -10,11 +10,16 @@ defmodule VaccinationcardWeb.UsersController do
       |> put_status(:ok)
       |> render("show.json", user: user)
     else
-      {:error,  %{status: :not_found, result: error_message}} ->
+      {:error, :not_found} ->
         conn
         |> put_status(404)
         |> put_view(json: VaccinationcardWeb.ErrorJSON)
         |> render(:"404")
+      {:error, :invalid_params} ->
+        conn
+        |> put_status(400)
+        |> put_view(json: VaccinationcardWeb.ErrorJSON)
+        |> render(:"400")
     end
   end
 end

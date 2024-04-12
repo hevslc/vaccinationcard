@@ -1,6 +1,6 @@
 defmodule Vaccinationcard.Models.User do
   use Ecto.Schema
-  alias Vaccinationcard.Models.User
+  alias Vaccinationcard.Models.{User, Vaccination}
   alias Vaccinationcard.Repo
   import Ecto.Changeset
   import Ecto.Query
@@ -36,6 +36,8 @@ defmodule Vaccinationcard.Models.User do
     field :city,              :string
     field :birthplace,        :string
 
+    has_many :vaccinations, Vaccination
+
     timestamps()
   end
 
@@ -60,9 +62,11 @@ defmodule Vaccinationcard.Models.User do
     get_user_by_query(query)
   end
 
+  def get_user_by(_params), do: {:error, :invalid_params}
+
   defp get_user_by_query(query) do
     case Repo.one(query) do
-      nil -> {:error, %{status: :not_found, result: "Usuário não encontrado"}}
+      nil -> {:error, :not_found}
       user -> {:ok, user}
     end
   end
